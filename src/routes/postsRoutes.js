@@ -6,6 +6,12 @@ import {
   uploadImagem,
   atualizarNovoPost,
 } from "../controllers/postsControllers.js";
+import cors from "cors";
+
+const corsOptions = {
+  origin: "http://localhost:8000",
+  optionsSuccessStatus: 200
+}
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,6 +27,7 @@ const upload = multer({ dest: "./uploads", storage });
 
 const routes = (app) => {
   app.use(express.json());
+  app.use(cors(corsOptions))
 
   app.get("/posts", listarPosts);
   app.post("/posts", postarNovoPost);
